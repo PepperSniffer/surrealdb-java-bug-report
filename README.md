@@ -10,7 +10,7 @@ SIGSEGV (0xb) at Klass::method_at_vtable(int)
 ```
 
 The crash happens inside the native layer of the SDK (`libjvm.so`), not in user code.  
-A full crash log is included in [`hs_err_pid46444.log`](hs_err_pid46444.log).
+A full crash log is included in [`hs_err_pid47358.log`](hs_err_pid47358.log).
 
 ## Environment tested
 
