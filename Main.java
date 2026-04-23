@@ -1,45 +1,46 @@
 import com.surrealdb.RecordId;
 import com.surrealdb.Surreal;
-import com.surrealdb.signin.RootCredential;
 
-class Main {
+void main() {
+	segFault();
+}
 
-    public static class MyDoc {
-        public RecordId id;
-        public String name;
-        public String tenant;
-    }
+public static class MyDoc {
+	public RecordId id;
+	public String name;
+	public String tenant;
+}
 
-    public static void main(String[] args) {
-        try (Surreal surreal = new Surreal()) {
-            // also tested with a running docker container : surrealdb:v3.0.4
-            // surreal.connect("ws://127.0.0.1:8000");
-            // surreal.signin(new RootCredential("root", "root"));
 
-            surreal.connect("memory");
+private static void segFault() {
+	try (Surreal surreal = new Surreal()) {
+		// also tested with a running docker container : surrealdb:v3.0.4
+		// surreal.connect("ws://127.0.0.1:8000");
+		// surreal.signin(new RootCredential("root", "root"));
 
-            surreal.useNs("my_ns").useDb("my_db");
+		surreal.connect("memory");
 
-            surreal.query(
-                """
-                CREATE myDoc:["myTenant", rand::ulid()] CONTENT {name: "foo", tenant: "myTenant"}
-                """
-            );
+		surreal.useNs("my_ns").useDb("my_db");
 
-            var docs = surreal.select(MyDoc.class, "myDoc");
+		surreal.query(
+				"""
+						CREATE myDoc:["myTenant", rand::ulid()] CONTENT {name: "foo", tenant: "myTenant"}
+						"""
+		);
 
-            while (docs.hasNext()) {
-                var doc = docs.next();
-                System.out.println("Doc ID: " + doc.id);
-                System.out.println("Name: " + doc.name);
-                System.out.println("Tenant: " + doc.tenant);
+		var docs = surreal.select(MyDoc.class, "myDoc");
 
-                var id = doc.id.getId();
-                System.out.println(id.isArray()); // true
-                // works fine till this point
+		while (docs.hasNext()) {
+			var doc = docs.next();
+			IO.println("Doc ID: " + doc.id);
+			IO.println("Name: " + doc.name);
+			IO.println("Tenant: " + doc.tenant);
 
-                var t = id.getArray().len(); // Crash
-            }
-        }
-    }
+			var id = doc.id.getId();
+			IO.println(id.isArray()); // true
+			// works fine till this point
+
+			id.getArray().len(); // Crash
+		}
+	}
 }
