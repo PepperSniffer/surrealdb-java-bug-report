@@ -1,3 +1,4 @@
+import com.surrealdb.Array;
 import com.surrealdb.RecordId;
 import com.surrealdb.Surreal;
 
@@ -39,8 +40,16 @@ private static void segFault() {
 			var id = doc.id.getId();
 			IO.println(id.isArray()); // true
 			// works fine till this point
+			var arr = id.getArray();
 
-			id.getArray().len(); // Crash
+
+			//crash all of these lines
+			arr.len();
+			arr.get(0);
+			arr.iterator();
+			arr.synchronizedIterator();
+
+
 		}
 	}
 }
