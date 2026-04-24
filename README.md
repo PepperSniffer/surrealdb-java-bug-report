@@ -39,3 +39,12 @@ java -cp surrealdb-2.0.0.jar Main.java
 ```
 
 The JVM will crash with a `SIGSEGV` and write an `hs_err_pidXXXX.log` file.
+
+
+## Other bugs and improvements proposals
+I'm using this repo to track some improvements and bugs on the Surreal Java SDK.
+
+- [ArrayBasedRecordIds.java](ArrayBasedRecordIds.java): I'd like to be able to use Array based RecordIds.
+- [NullableBoolean.java](NullableBoolean.java): nullable Boolean are not handled properly i've found a workaround that sucks but works.
+- [UseRecordInsteadOfClass.java](UseRecordInsteadOfClass.java): Java records is a good way to represent an immutable object i'd love Surreal to handle them.
+- [UseSurrealPojoWithoutSurrealInit.java](UseSurrealPojoWithoutSurrealInit.java): Instantiating a Surreal POJO (such as RecordId) should not rely on the rust code.

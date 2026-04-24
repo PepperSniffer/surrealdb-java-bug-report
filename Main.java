@@ -1,17 +1,9 @@
-import com.surrealdb.Array;
-import com.surrealdb.RecordId;
 import com.surrealdb.Surreal;
+import models.MyDoc;
 
 void main() {
 	segFault();
 }
-
-public static class MyDoc {
-	public RecordId id;
-	public String name;
-	public String tenant;
-}
-
 
 private static void segFault() {
 	try (Surreal surreal = new Surreal()) {
@@ -48,8 +40,6 @@ private static void segFault() {
 			arr.get(0);
 			arr.iterator();
 			arr.synchronizedIterator();
-
-
 		}
 	}
 }
