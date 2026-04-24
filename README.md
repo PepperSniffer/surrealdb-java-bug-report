@@ -48,3 +48,8 @@ I'm using this repo to track some improvements and bugs on the Surreal Java SDK.
 - [NullableBoolean.java](NullableBoolean.java): nullable Boolean are not handled properly i've found a workaround that sucks but works.
 - [UseRecordInsteadOfClass.java](UseRecordInsteadOfClass.java): Java records is a good way to represent an immutable object i'd love Surreal to handle them.
 - [UseSurrealPojoWithoutSurrealInit.java](UseSurrealPojoWithoutSurrealInit.java): Instantiating a Surreal POJO (such as RecordId) should not rely on the rust code.
+
+You can run these files just as the example above:
+```bash
+java -cp surrealdb-2.0.0.jar NullableBoolean.java
+```
